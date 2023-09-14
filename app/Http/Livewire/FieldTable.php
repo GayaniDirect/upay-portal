@@ -26,6 +26,8 @@ final class FieldTable extends PowerGridComponent
     | Setup Table's general features
     |
     */
+
+
     public function setUp(): array
     {
         $this->showCheckBox();
@@ -126,10 +128,10 @@ final class FieldTable extends PowerGridComponent
                 ->searchable()
                 ->makeInputText(),
 
-            Column::make('ACTION', 'actions')
-                ->sortable()
-                ->searchable()
-                ->makeInputText(),
+           Column::make('ACTION', 'actions')
+               ->sortable()
+               ->searchable()
+               ->makeInputText(),
 
         ]
             ;
@@ -149,21 +151,45 @@ final class FieldTable extends PowerGridComponent
      * @return array<int, Button>
      */
 
-    /*
+     protected function getListeners(): array
+    {
+        return array_merge(
+            parent::getListeners(),
+            [
+                'disable-user' => 'disable',
+            ]
+        );
+    }
+
+    public function disable($id)
+    {
+        $data = Field::where('id', $id)
+            ->update(['actions' => 'inactive']);
+
+        $this->refresh();
+    }
+
     public function actions(): array
     {
        return [
-           Button::make('edit', 'Edit')
-               ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
-               ->route('field.edit', ['field' => 'id']),
 
-           Button::make('destroy', 'Delete')
-               ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
-               ->route('field.destroy', ['field' => 'id'])
-               ->method('delete')
+          Button::add('edit')
+                ->caption('Edit')
+                ->class('bg-indigo-500 cursor-pointer text-white px-3 py-1 rounded-md text-sm')
+                ->emit('edit-user', ['userId' => 'id']),
+
+        //    Button::make('edit', 'Edit')
+        //        ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm'),
+        //     //    ->route('field.edit', ['field' => 'id']),
+
+           Button::make('disable', 'Disable')
+               ->class('bg-red-500 cursor-pointer text-white px-3 py-1 rounded text-sm')
+            //    ->route('field.destroy', ['field' => 'id'])
+            ->emit('disable-user', ['fieldId' => 'id'])
+            ->method('disable'),
         ];
     }
-    */
+
 
     /*
     |--------------------------------------------------------------------------
@@ -179,16 +205,16 @@ final class FieldTable extends PowerGridComponent
      * @return array<int, RuleActions>
      */
 
-    /*
-    public function actionRules(): array
-    {
-       return [
 
-           //Hide button edit for ID 1
-            Rule::button('edit')
-                ->when(fn($field) => $field->id === 1)
-                ->hide(),
-        ];
-    }
-    */
+    // public function actionRules(): array
+    // {
+    //    return [
+
+    //        //Hide button edit for ID 1
+    //         Rule::button('edit')
+    //             ->when(fn($field) => $field->id === 1)
+    //             ->hide(),
+    //     ];
+    // }
+
 }

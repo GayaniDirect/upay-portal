@@ -11,9 +11,18 @@ const mix = require('laravel-mix');
  |
  */
 
+// webpack.mix.js
+// mix.js("resources/js/backend/app.js", "public/js")
+// .postCss("resources/css/app.css", "public/css", [
+//  require("tailwindcss"),
+// ]);
+
 mix.setPublicPath('public')
     .setResourceRoot('../') // Turns assets paths in css relative to css file
     .vue()
+    .postCss("resources/css/app.css", "public/css", [
+        require("tailwindcss"),
+    ])
     .sass('resources/sass/frontend/app.scss', 'css/frontend.css')
     .sass('resources/sass/backend/app.scss', 'css/backend.css')
     .js('resources/js/frontend/app.js', 'js/frontend.js')

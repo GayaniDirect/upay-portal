@@ -35,7 +35,7 @@
                     href="#"
                     icon="c-sidebar-nav-icon cil-user"
                     class="c-sidebar-nav-dropdown-toggle"
-                    :text="__('ADMIN USER MANAGEMENT')" />
+                    :text="__('Admin User Management')" />
 
                 <ul class="c-sidebar-nav-dropdown-items">
                     @if (

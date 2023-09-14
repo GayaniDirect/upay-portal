@@ -11,6 +11,8 @@
     @yield('meta')
 
     @stack('before-styles')
+    
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ mix('css/backend.css') }}" rel="stylesheet">
     <livewire:styles />
     @stack('after-styles')

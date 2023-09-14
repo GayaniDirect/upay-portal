@@ -17,4 +17,5 @@ class Field extends Model
         'email',
         'actions'
     ];
+
 }
